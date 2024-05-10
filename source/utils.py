@@ -33,14 +33,17 @@ def setup_model() -> object:
     # Parse the JSON string into a dictionary
     model_settings = json.loads(model_settings_str)
     
+    # Access the nested 'settings' object
+    model_kwargs = model_settings.get('settings', {}) 
+    
     # log the settings
     logging.info("Model settings loaded successfully", model_settings)
 
     # Create and configure the ChatOpenAI model instance
     llm_model = ChatOpenAI(
-        model_name=model_settings.get("model_name"),
-        temperature=model_settings.get("temperature"),
-        streaming=model_settings.get("streaming"),
+        model_name=model_kwargs.get('model_name'),
+        temperature=model_kwargs.get('temperature'),
+        streaming=model_kwargs.get('streaming'),
         callbacks=[StreamingStdOutCallbackHandler()],
         verbose=True
     )
@@ -84,6 +87,7 @@ def fetch_prompt(prompt_id) -> str:
     Returns:
         str: The fetched prompt.
     """
+    logging.info("fetch prompt initialize")
     return hub.pull(prompt_id)
 
 # Testing the code
