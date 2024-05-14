@@ -9,10 +9,10 @@ sys.path.insert(2, "application")
 sys.path.insert(3, "configuration")
 
 # Importing input schemas
-from schemas import QueryInput, SettingsInput
+from application.schemas import QueryInput, SettingsInput
 
 # Importing functions to fetch and update settings
-from settings_manager import fetch_settings, insert_settings
+from application.settings_manager import fetch_settings, insert_settings
 
 # Importing the main function to execute the agent
 from source.ast_main import execute_agent

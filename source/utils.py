@@ -33,17 +33,13 @@ def setup_model() -> object:
     # Parse the JSON string into a dictionary
     model_settings = json.loads(model_settings_str)
     
-    # Access the nested 'settings' object
-    model_kwargs = model_settings.get('settings', {}) 
-    
     # log the settings
     logging.info("Model settings loaded successfully", model_settings)
 
     # Create and configure the ChatOpenAI model instance
     llm_model = ChatOpenAI(
-        model_name=model_kwargs.get('model_name'),
-        temperature=model_kwargs.get('temperature'),
-        streaming=model_kwargs.get('streaming'),
+        model_name=model_settings.get('model_name'),
+        streaming=model_settings.get('streaming'),
         callbacks=[StreamingStdOutCallbackHandler()],
         verbose=True
     )

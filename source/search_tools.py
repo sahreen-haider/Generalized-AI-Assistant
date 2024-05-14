@@ -106,9 +106,9 @@ class WebSearchTool:
     
 
 # if __name__ =="__main__":
-#     settings = {
-#     "api_key": "your_api_key",
-#     "other_setting": "other_value"
-# }
-#     SearchTool(settings)
-    
+    # settings = {
+    #         "api_key": "your_api_key",
+    #         "other_setting": "other_value"
+    #     }
+    # SearchTool(settings=settings)
+    # WebSearchTool(settings=settings)
