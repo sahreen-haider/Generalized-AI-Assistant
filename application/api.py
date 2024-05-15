@@ -34,9 +34,7 @@ async def invoke_agent(app_id: str, query_input:QueryInput) -> dict:
         """
     in_params= {"app_name": app_id, "session_id": query_input.session_id, "query": query_input.query}
     try:
-        print("triyng to pront setting \n")
         settings= fetch_settings(app_id)
-        print(settings)
         if settings is None:
             raise HTTPException(status_code=404, detail="Settings not found")
         result= execute_agent(in_params, settings)
