@@ -34,9 +34,7 @@ class AgentManager:
 
         # Fetch Prpompt/ AGent prompt from settings
         prompt_id= self.settings["parent_settings"]["agent_id"]
-        print(f"PRIMPT ID: {prompt_id}")
         prompt= fetch_prompt(prompt_id)
-        print(f"PROMPT FETCJED: {prompt}")
 
         tool_id = self.settings["parent_settings"]["tool_id"]
         tools_name = f'tools_list_{tool_id}'
@@ -77,16 +75,13 @@ def execute_agent(in_params: dict, settings: dict):
     Returns:
         str: Result of the agent execution.
     """
-    print("Entered execute agent")
     session_id = in_params["session_id"]
-    print(f"SESSION ID: {session_id}")
 
     # Initialize Agent manager with settings
     agent_manager= AgentManager(settings=settings)
     try:
         # initialize and configure the agent
         agent= agent_manager.initialize_agent()
-        print("AGENT INITIALIZED")
 
         # invoke the agent with input params
         result= agent.invoke({
@@ -96,7 +91,6 @@ def execute_agent(in_params: dict, settings: dict):
                 "session_id": session_id
             }
         })
-        print("INVOKED AGENT")
         result = result["output"]
     except Exception as e:
         print(f"Error during agent execution: {e}")

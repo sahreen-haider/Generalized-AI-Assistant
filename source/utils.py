@@ -68,8 +68,7 @@ def get_memory(session_id) -> object:
     logging.info("Retrieving conversational memory for session ID: ", session_id)
 
     # Create a RedisChatMessageHistory instance for storing message history
-    # redis_url = os.environ.get("REDIS_URL")
-    redis_url = "redis://default:gzsEIISCWJChlaEiTCktS8ilY494bIfY@redis-14747.c305.ap-south-1-1.ec2.redns.redis-cloud.com:14747"
+    redis_url = os.environ.get("REDIS_URL")
     message_history = RedisChatMessageHistory(url=redis_url, ttl=600, session_id=session_id)
 
     logging.info("Conversational memory retrieved successfully for session ID: %s", session_id)
