@@ -1,7 +1,7 @@
 import json
 import os
 
-import redis
+import redis 
 from dotenv import load_dotenv
 import redis.client
 

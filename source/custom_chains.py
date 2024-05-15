@@ -20,9 +20,9 @@ class ChainHandler:
             chain: A chain formed by concatenating the fetched prompt with the model.
         """
          # Fetch prompt based on the provided prompt ID
-        logging.info("Fetching prompt with ID: %s", prompt_id)
+        logging.info("Fetching prompt")
         prompt = fetch_prompt(prompt_id)
-        logging.info("Prompt fetched successfully.")
+        logging.info("Prompt fetched successfully.", prompt_id)
 
         # Concatenate the fetched prompt with the model
         logging.info("Creating chain by concatenating prompt with model.")

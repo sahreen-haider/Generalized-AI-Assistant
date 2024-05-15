@@ -11,6 +11,8 @@ from langchain_openai import ChatOpenAI
 from logger import logging
 from exception import CustomException
 
+os.environ.clear()
+
 # Here we load the environment variables
 dotenv_path = os.path.join(os.path.dirname(__file__), '../.env')
 load_dotenv(dotenv_path)
@@ -63,10 +65,11 @@ def get_memory(session_id) -> object:
     Returns:
         object: Conversational Memory object.
     """
-    logging.info("Retrieving conversational memory for session ID: %s", session_id)
+    logging.info("Retrieving conversational memory for session ID: ", session_id)
 
     # Create a RedisChatMessageHistory instance for storing message history
-    redis_url = os.environ.get("REDIS_URL")
+    # redis_url = os.environ.get("REDIS_URL")
+    redis_url = "redis://default:gzsEIISCWJChlaEiTCktS8ilY494bIfY@redis-14747.c305.ap-south-1-1.ec2.redns.redis-cloud.com:14747"
     message_history = RedisChatMessageHistory(url=redis_url, ttl=600, session_id=session_id)
 
     logging.info("Conversational memory retrieved successfully for session ID: %s", session_id)
@@ -79,14 +82,14 @@ def fetch_prompt(prompt_id) -> str:
 
     Args:
         prompt_id (str): The ID of the prompt to fetch.
-
     Returns:
         str: The fetched prompt.
     """
-    logging.info("fetch prompt initialize")
-    return hub.pull(prompt_id)
+    prompt_hub= hub.pull(prompt_id)
+    logging.info(f"fetched the prompt sucessfully {prompt_hub}")   
+    return prompt_hub
 
 # Testing the code
 # if __name__ == "__main__":
-#     get_memory(1)
+#     fetch_prompt()
     

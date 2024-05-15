@@ -99,8 +99,9 @@ class WebSearchTool:
         search_response, urls = self.search_tool.perform_search(query)  # Performing search using SearchTool
         search_response = self.search_tool.clean_text(search_response)  # Cleaning the search response
         logging.info("Search response cleaned successfully.")  # Logging search response cleaning
-        chain = self.chain_handler.create_chain(prompt_id=self.settings.get("prompt_id"))  # Creating a chain
-        results = chain.invoke({"query": query, "documents": (search_response, urls)})  # Invoking the chain
+        # chain = self.chain_handler.create_chain(prompt_id=self.settings.get("prompt_id"))  # Creating a chain
+        chain = self.chain_handler.create_chain(prompt_id=self.settings["Tools"]["wb_tool"]["prompt_id"])
+        results = chain.invoke({"question": query, "context": (search_response, urls)})  # Invoking the chain
         logging.info("Web search tool execution completed.")  # Logging web search tool completion
         return results  # Returning the results of the web search
     
