@@ -18,3 +18,8 @@ class SettingsInput(BaseModel):
         settings (dict): A dictionary containing settings information.
     """
     settings: dict  # Dictionary containing settings information
+
+
+
+class SummarizeRequest(BaseModel):
+    session_id: str

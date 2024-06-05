@@ -9,13 +9,14 @@ sys.path.insert(2, "application")
 sys.path.insert(3, "configuration")
 
 # Importing input schemas
-from schemas import QueryInput, SettingsInput
+from schemas import QueryInput, SettingsInput, SummarizeRequest
 
 # Importing functions to fetch and update settings
 from settings_manager import fetch_settings, insert_settings
 
 # Importing the main function to execute the agent
 from source.ast_main import execute_agent
+from source.utils import summarize
 
 # Creating a FastAPI instance
 app = FastAPI()
@@ -57,5 +58,17 @@ async def get_settings(app_id: str) -> dict:
     try:
         settings= fetch_settings(app_id)
         return settings
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+
+
+# Define the API endpoint
+@app.post("/summarize/")
+def summarize_endpoint(request: SummarizeRequest):
+    try:
+        summary = summarize(request.session_id)
+        return {"summary": summary}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

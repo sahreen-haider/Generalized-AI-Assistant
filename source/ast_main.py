@@ -1,3 +1,7 @@
+"""
+Assistant Manager - ast_main
+"""
+
 import os
 import importlib
 

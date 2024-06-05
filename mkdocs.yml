@@ -1,0 +1,39 @@
+site_name: AI Assistant Documentation
+site_description: Documentation for the AI Assistant project
+site_author: Owais Bin Mushtaq
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Installation: installation.md
+  - API Reference:
+      - Custom Chains: reference/custom_chains.md
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - "import sys; sys.path.insert(0, 'source')"
+            - "import sys; sys.path.insert(1, 'application')"
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
+
