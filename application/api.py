@@ -16,7 +16,7 @@ from settings_manager import fetch_settings, insert_settings
 
 # Importing the main function to execute the agent
 from source.ast_main import execute_agent
-from source.utils import summarize
+from source.summarization import summarize
 
 # Creating a FastAPI instance
 app = FastAPI()
