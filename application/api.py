@@ -2,6 +2,7 @@ import sys
 
 import uvicorn
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 # Adding paths to import custom modules
 sys.path.insert(1, "source")
@@ -20,6 +21,15 @@ from source.summarization import summarize
 
 # Creating a FastAPI instance
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to allow only specific origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Adjust this to allow only specific methods
+    allow_headers=["*"],  # Adjust this to allow only specific headers
+)
 
 @app.post("/invoke/{app_id}")
 async def invoke_agent(app_id: str, query_input:QueryInput) -> dict:
