@@ -17,9 +17,6 @@
             <div class="input-field col s4">
                 <input type="text" id="session-id-input" class="validate" placeholder="Enter session ID">
             </div>
-            <div class="input-field col s5">
-                <input type="text" id="message-input" class="validate" placeholder="Type your message here">
-            </div>
             <div class="col s3">
                 <button class="btn waves-effect waves-light" onclick="sendMessage()">Send Message</button>
             </div>
@@ -34,19 +31,18 @@
 
         async function sendMessage() {
             const sessionId = document.getElementById("session-id-input").value;
-            const message = document.getElementById("message-input").value;
 
             if (evtSource) {
                 evtSource.close();
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/invoke/wildfloc', {
+                const response = await fetch('http://127.0.0.1:8000/summarize/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ sessionId, message }),
+                    body: JSON.stringify({ sessionId }),
                 });
 
                 if (!response.ok) {

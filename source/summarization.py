@@ -26,7 +26,7 @@ os.environ['SERPER_API_KEY'] = os.getenv('SERPER_API_KEY')
 
 def summarize(id:str)->str:
     """
-    Summarize the given id.
+    Summarize the  chat uing the session id.
     """
     message_history = RedisChatMessageHistory(
         url=redis_url,
@@ -36,7 +36,6 @@ def summarize(id:str)->str:
     message_history = str(message_history)  
     text = ''
     
-    # for i, page in enumerate(pdfreader.pages):
     for page in message_history:
         text += page
         
@@ -79,10 +78,6 @@ def summarize(id:str)->str:
         FULL SUMMARY:
         """
     map_prompt_template = PromptTemplate(template=map_prompt, input_variables=["text"])
-    
-    # map_chain = load_summarize_chain(llm=llm,
-    #                          chain_type="stuff",
-    #                          prompt=map_prompt_template)
     
     llm_chain = LLMChain(llm=llm, prompt=map_prompt_template)
     
