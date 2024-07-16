@@ -102,4 +102,3 @@ def execute_agent(in_params: dict, settings: dict):
         result = "Internal Error, If the issue persists please call admin"
     
     return result
-
