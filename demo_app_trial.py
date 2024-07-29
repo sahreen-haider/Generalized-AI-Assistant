@@ -16,7 +16,7 @@ sys.path.insert(3, "configuration")
 from source.ast_main import execute_agent
 from application.settings_manager import fetch_settings, insert_settings
 from source.summarization import summarize
-from automate_sends import send
+from source.automate_sends import send
 
 # Get the Telegram token and chat ID from environment variables
 my_token = os.getenv("TELEGRAM_TOKEN")
