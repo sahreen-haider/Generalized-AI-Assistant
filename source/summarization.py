@@ -72,9 +72,9 @@ def summarize(id:str)->str:
     map_prompt = """
         You will be given a document.
         Your goal is to extract all the human questions and give a summary of this human questions so that a reader will have a full understanding of what happened.
-        Your response should be precise and according to what was said in the passage also do sentimental analysis on it and classify the document into three categories,
-        The categories are "Positive", "Negative", "Neutral" assign the categories to the document according to the tone of questions asked by human, Please put the category inside the curly brackets and only assign categories to the sentimental analysis part nothing else.
-
+        Your response should be precise and according to what was said in the passage also do sentimental analysis on it and categorize the human questions in the following three
+        categories such as negative, positive and neutral assign the categories accordingly in a new line.
+        Strictly use the categories only nothing else for sentimental analysis, display the results for sentimental analysis like the following 'Sentimental Analysis: category of the sentiment', also output the percentage of sentimental analysis.
 
         ```{text}```
         FULL SUMMARY:
