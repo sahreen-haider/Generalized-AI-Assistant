@@ -28,7 +28,7 @@ def search_tool_azal(question: str):
     return response
 
 @tool
-def get_azal_activities(question:str):
+def azal_database_tool(question:str):
     """
     Fetch general activities based on a query from Elasticsearch store and process the response.
     """
@@ -38,6 +38,6 @@ def get_azal_activities(question:str):
 # Putting all tools together
 tools_list_wildfloc = [search_tool_wildfloc]
 tools_list_azal = [search_tool_azal,
-                    get_azal_activities
+                    azal_database_tool
                     ]
 
