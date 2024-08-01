@@ -9,6 +9,7 @@ from langchain_core.tools import tool
 from source.search_tools import WebSearchTool
 from application.settings_manager import fetch_settings
 
+from database_setup import es_store
 
 @tool
 def search_tool_wildfloc(question: str):
@@ -26,6 +27,17 @@ def search_tool_azal(question: str):
     response = web_search.wb_tool(question)
     return response
 
+@tool
+def get_azal_activities(question:str):
+    """
+    Fetch general activities based on a query from Elasticsearch store and process the response.
+    """
+    docs = es_store.as_retriever().invoke(question)
+    return docs
+
 # Putting all tools together
 tools_list_wildfloc = [search_tool_wildfloc]
-tools_list_azal = [search_tool_azal]
+tools_list_azal = [search_tool_azal,
+                    get_azal_activities
+                    ]
+
