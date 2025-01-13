@@ -31,7 +31,11 @@ class SearchTool:
         Returns:
             tuple: A tuple containing the search response and a list of extracted URLs.
         """
-        website_url = self.settings.get("website_url", "")  # Extracting the website URL from settings
+        # website_url = self.settings.get("website_url", "")  # Extracting the website URL from settings
+        # Accessing the website_url
+        website_url = self.settings['Tools']['wb_tool']['website_url']
+        print("++++++WEBSITE URL+++++++++")
+        print(website_url)
         modified_query = f"{website_url} {query}"  # Modifying query to include website URL
         logging.info(f"Performing search for query: {modified_query}")  # Logging search query
         response = self.serper_api.run(query=modified_query)  # Running the search query
