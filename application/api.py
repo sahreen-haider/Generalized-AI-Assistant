@@ -20,7 +20,7 @@ from schemas import QueryInput, SettingsInput, SummarizeRequest
 from settings_manager import fetch_settings, insert_settings
 
 # Importing the main function to execute the agent
-from source.ast_main import execute_agent
+from source.ast_main import execute_agent, execute_agent_0
 from source.summarization import summarize
 
 # Importing the websocket module
@@ -38,6 +38,16 @@ app.add_middleware(
     allow_headers=["*"],  # Adjust this to allow only specific headers
 )
 
+@app.get("/")
+async def root():
+    """
+    Root endpoint of the FastAPI application.
+
+    Returns:
+        dict: A dictionary containing a message indicating that the service is healthy and running.
+    """
+    return {"message": "Service is healthy and running."}
+
 @app.post("/invoke/{app_id}")
 async def invoke_agent(app_id: str, query_input:QueryInput) -> dict:
     """
@@ -52,15 +62,12 @@ async def invoke_agent(app_id: str, query_input:QueryInput) -> dict:
         """
     in_params= {"app_name": app_id, "session_id": query_input.session_id, "query": query_input.query}
     try:
-        settings= fetch_settings(app_id)
+        settings = fetch_settings(app_id)
         if settings is None:
             raise HTTPException(status_code=404, detail="Settings not found")
-        result= execute_agent(in_params, settings)
-        # return {"result": result}
-        return StreamingResponse(execute_agent(in_params, settings),
-                                 media_type="text/event-stream")
+        result = execute_agent_0(in_params, settings)
+        return {"result": result}
     except Exception as e:
-        print("Loged here")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -78,7 +85,11 @@ async def websocket_endpoint(websocket: WebSocket, app_id: str):
         while True:
             data = await websocket.receive_json()
             query_input = QueryInput(**data)
-            in_params = {"app_name": app_id, "session_id": query_input.session_id, "query": query_input.query}
+            in_params = {
+                "app_name": app_id, 
+                "session_id": query_input.session_id, 
+                "query": query_input.query
+                }
             try:
                 settings = fetch_settings(app_id)
                 if settings is None:
@@ -110,8 +121,6 @@ async def get_settings(app_id: str) -> dict:
         return settings
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
 
 
 # Define the API endpoint
