@@ -20,9 +20,9 @@ def search_tool_wildfloc(question: str):
     return response
 
 @tool
-def search_tool_azal(question: str):
+def search_tool_jordan(question: str):
     """This is a websearch tool that you can use for question about any website url"""
-    settings = fetch_settings("azal")
+    settings = fetch_settings("jordan")
     web_search = WebSearchTool(settings)
     response = web_search.wb_tool(question)
     return response
@@ -36,8 +36,8 @@ def azal_database_tool(question:str):
     return docs
 
 # Putting all tools together
-tools_list_wildfloc = [search_tool_wildfloc]
-tools_list_azal = [search_tool_azal,
+# tools_list_wildfloc = [search_tool_wildfloc]
+tools_list_jordan = [search_tool_jordan,
                     azal_database_tool
                     ]
 
