@@ -37,7 +37,5 @@ def azal_database_tool(question:str):
 
 # Putting all tools together
 # tools_list_wildfloc = [search_tool_wildfloc]
-tools_list_jordan = [search_tool_jordan,
-                    azal_database_tool
-                    ]
+tools_list_jordan = [search_tool_jordan]
 
