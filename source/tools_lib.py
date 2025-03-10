@@ -35,7 +35,16 @@ def azal_database_tool(question:str):
     docs = es_store.as_retriever().invoke(question)
     return docs
 
+@tool
+def CQAI_tool(question:str):
+    """This is a websearch tool that you can use for question about any website url"""
+    settings = fetch_settings("jordan")
+    web_search = WebSearchTool(settings)
+    response = web_search.wb_tool(question)
+    return response
+
+
 # Putting all tools together
 # tools_list_wildfloc = [search_tool_wildfloc]
-tools_list_jordan = [search_tool_jordan]
+tools_list_jordan = [CQAI_tool]
 

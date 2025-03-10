@@ -14,7 +14,18 @@ os.environ.clear()
 # Load environment variables from the .env file
 load_dotenv(dotenv_path)
 
-redis_client = redis.Redis.from_url(os.environ.get("REDIS_URL"), decode_responses=True)
+# Fetch AWS Redis credentials from the environment variables
+aws_redis_endpoint = os.environ.get("AWS_REDIS_ENDPOINT")
+aws_redis_port = os.environ.get("AWS_REDIS_PORT", 6379)
+aws_redis_passsword = os.environ.get("AWS_REDIS_PASSWORD")
+
+# Initialize the Redis client with AWS Redis endpoint.
+redis_client = redis.Redis(
+    host=aws_redis_endpoint,
+    port=aws_redis_port,
+    password=aws_redis_passsword,
+    decode_responses=True
+)
 
 def insert_settings(app_id: str, new_settings: dict):
 
